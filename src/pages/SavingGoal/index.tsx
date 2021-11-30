@@ -2,8 +2,12 @@ import Layout from 'components/Layout';
 import HouseIcon from 'assets/icons/HouseIcon';
 import * as S from './styles';
 import Button from 'components/Button';
+import MoneyInput from 'components/MoneyInput';
+import { useState } from 'react';
 
 export default function SavingGoal() {
+  const [money, setMoney] = useState('');
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     //This is just a placecholder function
@@ -26,14 +30,16 @@ export default function SavingGoal() {
             </div>
           </S.HeaderContainer>
           <S.InputsContainer>
-            <div>
-              <S.Label>Total amount</S.Label>
-              <div>$25,000</div>
-            </div>
-            <div>
-              <S.Label>Reach goal by</S.Label>
-              <div>25,000</div>
-            </div>
+            <MoneyInput
+              label="Total amount"
+              name="money"
+              onInputChange={(value) => setMoney(value)}
+            />
+            <MoneyInput
+              label="Total amount"
+              name="reachDate"
+              onInputChange={(value) => setMoney(value)}
+            />
           </S.InputsContainer>
           <S.AmountContainer>
             <S.AmountTitle>Monthly amount</S.AmountTitle>
