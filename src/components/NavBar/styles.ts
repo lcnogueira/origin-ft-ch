@@ -19,7 +19,7 @@ export const ContentContainer = styled.div`
 `;
 
 export const LogoWrapper = styled.div`
-  color: var(--black);
+  color: var(--blueGray900);
   width: 75px;
   height: 24px;
 
