@@ -17,6 +17,10 @@ export const Input = styled.input`
     font-size: 2.4rem;
   }
 
+  ::placeholder {
+    color: var(--blueGray100);
+  }
+
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;

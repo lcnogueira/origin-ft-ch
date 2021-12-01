@@ -1,11 +1,11 @@
 import DollarSignIcon from 'assets/icons/DollarSignIcon';
-import { InputHTMLAttributes, useState } from 'react';
+import { maskValue, unMaskValue } from 'lib/currency';
+import { InputHTMLAttributes, useCallback, useState } from 'react';
 import * as S from './styles';
 
 export type MoneyInputProps = {
-  onInputChange?: (value: string) => void;
+  onInputChange?: (value: number) => void;
   label?: string;
-  initialValue?: string;
   disabled?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
@@ -13,18 +13,20 @@ export default function MoneyInput({
   onInputChange,
   label,
   name,
-  initialValue = '',
   disabled,
   ...props
 }: MoneyInputProps) {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState('');
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.currentTarget.value;
-    setValue(newValue);
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const maskedValue = maskValue(e.currentTarget.value);
 
-    !!onInputChange && onInputChange(newValue);
-  };
+      setValue(maskedValue);
+      !!onInputChange && onInputChange(unMaskValue(maskedValue));
+    },
+    [onInputChange]
+  );
 
   return (
     <S.Wrapper disabled={disabled}>
@@ -34,12 +36,11 @@ export default function MoneyInput({
           <DollarSignIcon />
         </S.IconWrapper>
         <S.Input
-          type="number"
-          onChange={onChange}
+          {...props}
+          onChange={handleChange}
           value={value}
           disabled={disabled}
           {...(label ? { id: name } : {})}
-          {...props}
         />
       </S.InputWrapper>
     </S.Wrapper>
