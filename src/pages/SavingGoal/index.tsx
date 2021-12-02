@@ -4,6 +4,7 @@ import * as S from './styles';
 import Button from 'components/Button';
 import MoneyInput from 'components/MoneyInput';
 import { useCallback, useState } from 'react';
+import { maskValue } from 'lib/currency';
 
 export default function SavingGoal() {
   const [money, setMoney] = useState(0);
@@ -52,7 +53,8 @@ export default function SavingGoal() {
           </S.AmountContainer>
           <S.ResultMessage>
             You’re planning <strong>48 monthly deposits</strong> to reach your{' '}
-            <strong>$25,000</strong> goal by <strong>October 2020</strong>.
+            <strong>{maskValue(String(money))}</strong> goal by{' '}
+            <strong>October 2020</strong>.
           </S.ResultMessage>
           <Button type="submit">Confirm</Button>
         </S.Card>
