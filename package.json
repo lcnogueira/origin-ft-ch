@@ -12,9 +12,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "jest --runInBand",
     "eject": "react-scripts eject",
     "format": "prettier --write src/**/*.{ts,tsx}",
-    "lint": "eslint './src/**/*.{ts,tsx}' --max-warnings=0"
+    "lint": "eslint './src/**/*.{ts,tsx}' --max-warnings=0",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "eslintConfig": {
     "extends": [
