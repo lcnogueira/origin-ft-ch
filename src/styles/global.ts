@@ -22,12 +22,14 @@ const GlobalStyles = createGlobalStyle`
   html {
     font-size: 62.5%;
     --white: #ffffff;
-    --black: #1e2a32;
     --brandColorPrimary: #1B31A8;
     --brandColorSecondary: #0079FF;
     --blueGray10: #F4F8FA;
     --blueGray50: #E9EEF2;
+    --blueGray100: #CBD5DC;
     --blueGray400: #708797;
+    --blueGray600: #4D6475;
+    --blueGray900: #1E2A32;
     --defaultTransition: 0.2s ease-in-out;
   }
 
@@ -39,7 +41,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     /* font-family: ; */
       font-size: 2rem;
-      color: var(--black);
+      color: var(--blueGray900);
       background-color: var(--blueGray10);
   }
 

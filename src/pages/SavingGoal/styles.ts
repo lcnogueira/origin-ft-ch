@@ -45,7 +45,7 @@ export const IconWrapper = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: var(---black);
+  color: var(---blueGray900);
   font-size: 2rem;
   line-height: 120%;
   font-weight: 500;
@@ -73,7 +73,7 @@ export const InputsContainer = styled.div`
   margin-bottom: 2.4rem;
 
   @media ${devices.small} {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 2fr;
   }
 `;
 
@@ -95,7 +95,7 @@ export const AmountContainer = styled.div`
 `;
 
 export const AmountTitle = styled.span`
-  color: var(--black);
+  color: var(--blueGray900);
   font-size: 1.8rem;
   line-height: 120%;
 

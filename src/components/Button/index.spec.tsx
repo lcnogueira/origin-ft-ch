@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Button from './index';
+import Button from '.';
 
 describe('<Button />', () => {
   it('should call a callback function when clicked', () => {
