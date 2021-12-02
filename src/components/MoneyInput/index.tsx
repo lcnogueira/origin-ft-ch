@@ -1,5 +1,5 @@
 import DollarSignIcon from 'assets/icons/DollarSignIcon';
-import { maskValue, unMaskValue } from 'lib/currency';
+import { maskValue, toCents, unMaskValue } from 'lib/currency';
 import { InputHTMLAttributes, useCallback, useState } from 'react';
 import * as S from './styles';
 
@@ -23,7 +23,7 @@ export default function MoneyInput({
       const maskedValue = maskValue(e.currentTarget.value);
 
       setValue(maskedValue);
-      !!onInputChange && onInputChange(unMaskValue(maskedValue));
+      !!onInputChange && onInputChange(toCents(unMaskValue(maskedValue)));
     },
     [onInputChange]
   );

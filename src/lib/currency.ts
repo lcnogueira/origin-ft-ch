@@ -9,8 +9,7 @@ export const unMaskValue = (value: string) => {
   if (!value) {
     return 0;
   }
-  const floatValue = parseFloat(value.replace(/,/g, ''));
-  return toCents(floatValue);
+  return parseFloat(value.replace(/,/g, ''));
 };
 
 export const toCents = (dollars: number) => {
