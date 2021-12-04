@@ -6,17 +6,19 @@ import * as S from './styles';
 export type MoneyInputProps = {
   onInputChange?: (value: number) => void;
   label?: string;
+  initialValue?: number;
   disabled?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export default function MoneyInput({
   onInputChange,
+  initialValue,
   label,
   name,
   disabled,
   ...props
 }: MoneyInputProps) {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(maskValue(String(initialValue)));
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
