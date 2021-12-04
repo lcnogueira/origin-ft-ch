@@ -8,14 +8,22 @@ export const updateMonth = (date: Date, months: number) => {
   return updatedDate;
 };
 
-export const addMonth = (date: Date) => {
+export const addAMonth = (date: Date) => {
   return updateMonth(date, 1);
 };
 
-export const removeMonth = (date: Date) => {
+export const removeAMonth = (date: Date) => {
   return updateMonth(date, -1);
 };
 
 export const monthsFromNow = (date: Date) => {
   return date;
+};
+
+export const getMonthName = (date: Date) => {
+  return date.toLocaleString('en-US', { month: 'long' });
+};
+
+export const getYear = (date: Date) => {
+  return date.getFullYear();
 };

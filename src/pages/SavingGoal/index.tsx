@@ -4,13 +4,13 @@ import HouseIcon from 'assets/icons/HouseIcon';
 import Button from 'components/Button';
 import MoneyInput from 'components/MoneyInput';
 import DateInput from 'components/DateInput';
-import { addMonth } from 'lib/date';
+import { addAMonth } from 'lib/date';
 
 import * as S from './styles';
 
 export default function SavingGoal() {
   const [money, setMoney] = useState(25000);
-  const [reachDate, setReachDate] = useState(addMonth(new Date()));
+  const [reachDate, setReachDate] = useState(addAMonth(new Date()));
 
   const handleMoneyChange = useCallback((value) => {
     setMoney(value);
@@ -52,7 +52,7 @@ export default function SavingGoal() {
             <DateInput
               label="Reach goal by"
               onDateChange={handleTargetDateChange}
-              initialDate={reachDate}
+              initialValue={reachDate}
             />
           </S.InputsContainer>
           <S.AmountContainer>

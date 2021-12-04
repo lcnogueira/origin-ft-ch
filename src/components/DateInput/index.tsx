@@ -1,46 +1,55 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ArrowLeftIcon from 'assets/icons/ArrowLeftIcon';
 import ArrowRightIcon from 'assets/icons/ArrowRightIcon';
-import { addMonth, getMonthYear, removeMonth } from 'lib/date';
+import {
+  addAMonth,
+  getMonthName,
+  getMonthYear,
+  getYear,
+  removeAMonth,
+} from 'lib/date';
 
 import * as S from './styles';
 
 type DateInputProps = {
   onDateChange?: (value: Date) => void;
   label?: string;
-  initialDate?: Date;
+  initialValue?: Date;
 };
 
-const CURRENT_MONTH_YEAR = getMonthYear();
+const MINIMUM_MONTH_YEAR = addAMonth(new Date());
 
 export default function DateInput({
   label,
-  initialDate,
+  initialValue,
   onDateChange,
 }: DateInputProps) {
-  const isMounted = useRef(false);
-  const [selectedMonthYear, setSelectedMonthYear] = useState(
-    initialDate ? getMonthYear(initialDate) : CURRENT_MONTH_YEAR
-  );
+  const isFirstRender = useRef(true);
+  const [selectedMonthYear, setSelectedMonthYear] = useState(() => {
+    if (!initialValue || getMonthYear(initialValue) < MINIMUM_MONTH_YEAR) {
+      return MINIMUM_MONTH_YEAR;
+    }
+    return getMonthYear(initialValue);
+  });
 
   const allowPreviousMonth = useMemo(
-    () => selectedMonthYear > CURRENT_MONTH_YEAR,
+    () => selectedMonthYear > MINIMUM_MONTH_YEAR,
     [selectedMonthYear]
   );
 
   const handleDecrementMonth = useCallback(() => {
     if (allowPreviousMonth) {
-      setSelectedMonthYear((currentValue) => removeMonth(currentValue));
+      setSelectedMonthYear((currentValue) => removeAMonth(currentValue));
     }
   }, [allowPreviousMonth]);
 
   const handleIncrementMonth = useCallback(() => {
-    setSelectedMonthYear((currentValue) => addMonth(currentValue));
+    setSelectedMonthYear((currentValue) => addAMonth(currentValue));
   }, []);
 
   useEffect(() => {
-    if (!isMounted.current) {
-      isMounted.current = true;
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
       return;
     }
 
@@ -50,11 +59,11 @@ export default function DateInput({
   useEffect(() => {
     const handleKeyUp = ({ key }: KeyboardEvent) => {
       if (key === 'ArrowLeft') {
-        return handleDecrementMonth();
+        handleDecrementMonth();
       }
 
       if (key === 'ArrowRight') {
-        return handleIncrementMonth();
+        handleIncrementMonth();
       }
     };
 
@@ -76,10 +85,8 @@ export default function DateInput({
           <ArrowLeftIcon />
         </S.IconWrapper>
         <S.DataWrapper>
-          <S.Month>
-            {selectedMonthYear.toLocaleString('en-US', { month: 'long' })}
-          </S.Month>
-          <S.Year>{selectedMonthYear.getFullYear()}</S.Year>
+          <S.Month>{getMonthName(selectedMonthYear)}</S.Month>
+          <S.Year>{getYear(selectedMonthYear)}</S.Year>
         </S.DataWrapper>
         <S.IconWrapper aria-label="next month" onClick={handleIncrementMonth}>
           <ArrowRightIcon />
