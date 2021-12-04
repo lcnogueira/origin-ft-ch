@@ -16,10 +16,6 @@ export const removeAMonth = (date: Date) => {
   return updateMonth(date, -1);
 };
 
-export const monthsFromNow = (date: Date) => {
-  return date;
-};
-
 export const getMonthName = (date: Date) => {
   return date.toLocaleString('en-US', { month: 'long' });
 };
