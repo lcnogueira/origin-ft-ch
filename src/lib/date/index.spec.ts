@@ -21,6 +21,7 @@ describe('date.ts', () => {
       expect(monthAndYear.getFullYear()).toBe(2023);
     });
   });
+
   describe('removeAMonth', () => {
     it('should remove only a month', () => {
       const onlyMonth = removeAMonth(new Date(2022, 5));
@@ -76,11 +77,13 @@ describe('date.ts', () => {
       expect(monthYearDate.getMilliseconds()).toBe(0);
     });
   });
+
   describe('getYear', () => {
     it('should return the full year', () => {
       expect(getYear(new Date(2022, 11))).toBe(2022);
     });
   });
+
   describe('updateMonth', () => {
     it('should add months', () => {
       const onlyMonths = updateMonth(new Date(2022, 5), 4);
