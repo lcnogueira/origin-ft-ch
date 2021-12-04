@@ -72,6 +72,6 @@ export const IconWrapper = styled.button`
 
   &:disabled {
     cursor: not-allowed;
-    filter: saturate(30%);
+    opacity: 0.5;
   }
 `;

@@ -1,12 +1,9 @@
 export const getMonthYear = (date = new Date()) => {
-  const currentMonthYear = date;
-  currentMonthYear.setDate(1);
-  currentMonthYear.setHours(0, 0, 0, 0);
-  return currentMonthYear;
+  return new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0);
 };
 
 export const updateMonth = (date: Date, months: number) => {
-  const updatedDate = new Date(date.getFullYear(), date.getMonth());
+  const updatedDate = getMonthYear(date);
   updatedDate.setMonth(updatedDate.getMonth() + months);
   return updatedDate;
 };

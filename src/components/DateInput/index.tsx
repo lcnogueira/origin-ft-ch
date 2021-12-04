@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ArrowLeftIcon from 'assets/icons/ArrowLeftIcon';
 import ArrowRightIcon from 'assets/icons/ArrowRightIcon';
 import { addMonth, getMonthYear, removeMonth } from 'lib/date';
@@ -23,6 +23,21 @@ export default function DateInput({
     initialDate ? getMonthYear(initialDate) : CURRENT_MONTH_YEAR
   );
 
+  const allowPreviousMonth = useMemo(
+    () => selectedMonthYear > CURRENT_MONTH_YEAR,
+    [selectedMonthYear]
+  );
+
+  const handleDecrementMonth = useCallback(() => {
+    if (allowPreviousMonth) {
+      setSelectedMonthYear((currentValue) => removeMonth(currentValue));
+    }
+  }, [allowPreviousMonth]);
+
+  const handleIncrementMonth = useCallback(() => {
+    setSelectedMonthYear((currentValue) => addMonth(currentValue));
+  }, []);
+
   useEffect(() => {
     if (!isMounted.current) {
       isMounted.current = true;
@@ -32,18 +47,22 @@ export default function DateInput({
     !!onDateChange && onDateChange(selectedMonthYear);
   }, [selectedMonthYear, onDateChange]);
 
-  const allowPreviousMonth = useMemo(
-    () => selectedMonthYear > CURRENT_MONTH_YEAR,
-    [selectedMonthYear]
-  );
+  useEffect(() => {
+    const handleKeyUp = ({ key }: KeyboardEvent) => {
+      if (key === 'ArrowLeft') {
+        return handleDecrementMonth();
+      }
 
-  const handleDecrementMonth = () => {
-    setSelectedMonthYear((currentValue) => removeMonth(currentValue));
-  };
+      if (key === 'ArrowRight') {
+        return handleIncrementMonth();
+      }
+    };
 
-  const handleIncrementMonth = () => {
-    setSelectedMonthYear((currentValue) => addMonth(currentValue));
-  };
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [handleIncrementMonth, handleDecrementMonth]);
 
   return (
     <S.Wrapper>
