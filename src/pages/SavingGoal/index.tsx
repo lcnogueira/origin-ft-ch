@@ -1,21 +1,29 @@
+import { useCallback, useState } from 'react';
 import Layout from 'components/Layout';
 import HouseIcon from 'assets/icons/HouseIcon';
-import * as S from './styles';
 import Button from 'components/Button';
 import MoneyInput from 'components/MoneyInput';
-import { useCallback, useState } from 'react';
+import DateInput from 'components/DateInput';
+import { addMonth, getMonthYear } from 'lib/date';
+
+import * as S from './styles';
 
 export default function SavingGoal() {
-  const [money, setMoney] = useState(0);
+  const [money, setMoney] = useState(25000);
+  const [reachDate, setReachDate] = useState(addMonth(getMonthYear()));
+
+  const handleMoneyChange = useCallback((value) => {
+    setMoney(value);
+  }, []);
+
+  const handleTargetDateChange = useCallback((value) => {
+    setReachDate(value);
+  }, []);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     //This is just a placecholder function
   };
-
-  const handleMoneyChange = useCallback((value) => {
-    setMoney(value);
-  }, []);
 
   return (
     <Layout>
@@ -39,11 +47,12 @@ export default function SavingGoal() {
               name="money"
               onInputChange={handleMoneyChange}
               placeholder="0.00"
+              initialValue={money}
             />
-            <MoneyInput
+            <DateInput
               label="Reach goal by"
-              name="reachDate"
-              onInputChange={handleMoneyChange}
+              onDateChange={handleTargetDateChange}
+              initialDate={reachDate}
             />
           </S.InputsContainer>
           <S.AmountContainer>

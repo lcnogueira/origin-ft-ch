@@ -27,6 +27,7 @@ const GlobalStyles = createGlobalStyle`
     --blueGray10: #F4F8FA;
     --blueGray50: #E9EEF2;
     --blueGray100: #CBD5DC;
+    --blueGray300: #8A9CA9;
     --blueGray400: #708797;
     --blueGray600: #4D6475;
     --blueGray900: #1E2A32;
