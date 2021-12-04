@@ -7,7 +7,7 @@ export const Input = styled.input`
   font-weight: 500;
   font-size: 2rem;
   line-height: 120%;
-  padding: 1.4rem 1.2rem;
+  padding: 0 1.2rem;
   background: transparent;
   border: 0;
   outline: none;
@@ -20,13 +20,6 @@ export const Input = styled.input`
   ::placeholder {
     color: var(--blueGray100);
   }
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  -moz-appearance: textfield;
 `;
 
 export const Label = styled.label`
@@ -52,6 +45,7 @@ export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   background: transparent;
+  height: 5.6rem;
   padding: 0 1.6rem;
   border-radius: 4px;
   border: 1px solid var(--blueGray50);

@@ -1,6 +1,6 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MoneyInput from './index';
+import MoneyInput from '.';
 
 describe('<MoneyInput />', () => {
   it('should render with a label', () => {
@@ -35,11 +35,19 @@ describe('<MoneyInput />', () => {
     const inputValue = '3045';
 
     userEvent.type(input, inputValue);
-    await waitFor(() => {
-      expect(input).toHaveValue('30.45');
-    });
+    expect(input).toHaveValue('30.45');
     expect(onInputChange).toHaveBeenCalledTimes(inputValue.length);
     expect(onInputChange).toHaveBeenCalledWith(3045);
+  });
+
+  it('should start with an initial value if provided', () => {
+    render(
+      <MoneyInput label="Total amount" name="money" initialValue={25000} />
+    );
+
+    expect(screen.getByRole('textbox', { name: /total amount/i })).toHaveValue(
+      '250.00'
+    );
   });
 
   it('should not change its value when disabled', async () => {
@@ -60,9 +68,7 @@ describe('<MoneyInput />', () => {
     const inputValue = '3045';
     userEvent.type(input, inputValue);
 
-    await waitFor(() => {
-      expect(input).not.toHaveValue(inputValue);
-    });
+    expect(input).not.toHaveValue(inputValue);
     expect(onInputChange).not.toHaveBeenCalled();
   });
 
