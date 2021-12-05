@@ -5,6 +5,8 @@ import {
   getMonthYear,
   getYear,
   updateMonth,
+  getMonthYearDescription,
+  monthsDifference,
 } from '.';
 
 describe('date.ts', () => {
@@ -40,6 +42,13 @@ describe('date.ts', () => {
     it('should return the month name', () => {
       expect(getMonthName(new Date(2021, 0))).toBe('January');
       expect(getMonthName(new Date(2021, 11))).toBe('December');
+    });
+  });
+
+  describe('getMonthYearDescription', () => {
+    it('should return the month and year description', () => {
+      expect(getMonthYearDescription(new Date(2021, 0))).toBe('January 2021');
+      expect(getMonthYearDescription(new Date(2022, 11))).toBe('December 2022');
     });
   });
 
@@ -95,6 +104,14 @@ describe('date.ts', () => {
       const monthsAndYears = updateMonth(new Date(2022, 11), 13);
       expect(monthsAndYears.getMonth()).toBe(0);
       expect(monthsAndYears.getFullYear()).toBe(2024);
+    });
+  });
+
+  describe('monthsDifference', () => {
+    it('should return the difference between 2 months', () => {
+      expect(monthsDifference(new Date(2022, 1), new Date(2022, 2))).toBe(1);
+      expect(monthsDifference(new Date(2021, 2), new Date(2022, 2))).toBe(12);
+      expect(monthsDifference(new Date(2021, 11), new Date(2022, 0))).toBe(1);
     });
   });
 });
