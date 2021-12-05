@@ -23,3 +23,15 @@ export const getMonthName = (date: Date) => {
 export const getYear = (date: Date) => {
   return date.getFullYear();
 };
+
+export const getMonthYearDescription = (date: Date) => {
+  return `${getMonthName(date)} ${getYear(date)}`;
+};
+
+export const monthsDifference = (dateFrom: Date, dateTo: Date) => {
+  return (
+    12 * (dateTo.getFullYear() - dateFrom.getFullYear()) +
+    dateTo.getMonth() -
+    dateFrom.getMonth()
+  );
+};

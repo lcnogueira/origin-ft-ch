@@ -1,24 +1,41 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Layout from 'components/Layout';
 import HouseIcon from 'assets/icons/HouseIcon';
 import Button from 'components/Button';
 import MoneyInput from 'components/MoneyInput';
 import DateInput from 'components/DateInput';
-import { addAMonth } from 'lib/date';
-
+import {
+  addAMonth,
+  getMonthYear,
+  getMonthYearDescription,
+  monthsDifference,
+} from 'lib/date';
+import { formatMoneyInCents } from 'lib/currency';
 import * as S from './styles';
 
+const TODAY = getMonthYear();
+
+const calculateDeposits = (money: number, reachDate: Date) => {
+  const monthsAmount = monthsDifference(TODAY, reachDate);
+  return { monthsAmount, monthlyDeposit: money / monthsAmount };
+};
+
 export default function SavingGoal() {
-  const [money, setMoney] = useState(25000);
+  const [moneyInCents, setMoneyInCents] = useState(25000000);
   const [reachDate, setReachDate] = useState(addAMonth(new Date()));
 
   const handleMoneyChange = useCallback((value) => {
-    setMoney(value);
+    setMoneyInCents(value);
   }, []);
 
   const handleTargetDateChange = useCallback((value) => {
     setReachDate(value);
   }, []);
+
+  const { monthsAmount, monthlyDeposit } = useMemo(
+    () => calculateDeposits(moneyInCents, reachDate),
+    [moneyInCents, reachDate]
+  );
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -47,7 +64,7 @@ export default function SavingGoal() {
               name="money"
               onInputChange={handleMoneyChange}
               placeholder="0.00"
-              initialValue={money}
+              initialValue={moneyInCents}
             />
             <DateInput
               label="Reach goal by"
@@ -57,11 +74,14 @@ export default function SavingGoal() {
           </S.InputsContainer>
           <S.AmountContainer>
             <S.AmountTitle>Monthly amount</S.AmountTitle>
-            <S.AmountValue>$520.83</S.AmountValue>
+            <S.AmountValue data-testid="monthly-deposit">
+              {formatMoneyInCents(monthlyDeposit)}
+            </S.AmountValue>
           </S.AmountContainer>
-          <S.ResultMessage>
-            You’re planning <strong>48 monthly deposits</strong> to reach your{' '}
-            <strong>$25,000</strong> goal by <strong>October 2020</strong>.
+          <S.ResultMessage data-testid="result-message">
+            You’re planning <strong>{monthsAmount} monthly deposit(s)</strong>{' '}
+            to reach your <strong>{formatMoneyInCents(moneyInCents)}</strong>{' '}
+            goal by <strong>{getMonthYearDescription(reachDate)}</strong>.
           </S.ResultMessage>
           <Button type="submit">Confirm</Button>
         </S.Card>
