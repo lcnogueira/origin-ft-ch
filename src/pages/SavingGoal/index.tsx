@@ -10,9 +10,7 @@ import {
   getMonthYearDescription,
   monthsDifference,
 } from 'lib/date';
-
 import { formatMoneyInCents } from 'lib/currency';
-
 import * as S from './styles';
 
 const TODAY = getMonthYear();
@@ -76,9 +74,11 @@ export default function SavingGoal() {
           </S.InputsContainer>
           <S.AmountContainer>
             <S.AmountTitle>Monthly amount</S.AmountTitle>
-            <S.AmountValue>{formatMoneyInCents(monthlyDeposit)}</S.AmountValue>
+            <S.AmountValue data-testid="monthly-deposit">
+              {formatMoneyInCents(monthlyDeposit)}
+            </S.AmountValue>
           </S.AmountContainer>
-          <S.ResultMessage>
+          <S.ResultMessage data-testid="result-message">
             You’re planning <strong>{monthsAmount} monthly deposit(s)</strong>{' '}
             to reach your <strong>{formatMoneyInCents(moneyInCents)}</strong>{' '}
             goal by <strong>{getMonthYearDescription(reachDate)}</strong>.

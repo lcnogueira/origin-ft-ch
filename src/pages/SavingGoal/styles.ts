@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import * as ButtonStyles from 'components/Button/styles';
 
-export const Content = styled.main`
+export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
