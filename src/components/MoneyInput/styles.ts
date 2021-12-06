@@ -4,6 +4,7 @@ import { MoneyInputProps } from '.';
 
 export const Input = styled.input`
   color: var(--blueGray600);
+  font-family: 'Rubik';
   font-weight: 500;
   font-size: 2rem;
   line-height: 120%;

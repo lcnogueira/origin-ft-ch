@@ -45,6 +45,8 @@ export const IconWrapper = styled.div`
 `;
 
 export const Title = styled.h1`
+  font-family: 'Rubik';
+  font-weight: 500;
   color: var(---blueGray900);
   font-size: 2rem;
   line-height: 120%;
@@ -105,6 +107,7 @@ export const AmountTitle = styled.span`
 `;
 
 export const AmountValue = styled.span`
+  font-family: 'Rubik';
   font-weight: 500;
   font-size: 2.4rem;
   line-height: 120%;
@@ -116,6 +119,7 @@ export const AmountValue = styled.span`
 `;
 
 export const ResultMessage = styled.p`
+  text-align: center;
   display: block;
   color: var(--blueGray900);
   font-size: 1.2rem;
@@ -127,4 +131,8 @@ export const ResultMessage = styled.p`
   border: 1px solid var(--blueGray50);
   border-top: none;
   margin-bottom: 3.2rem;
+
+  @media ${devices.medium} {
+    text-align: justify;
+  }
 `;
