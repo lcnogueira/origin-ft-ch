@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
-import RubikSemiBold from 'fonts/rubik-v14-latin-500.woff2';
-import WorkSansRegular from 'fonts/work-sans-v13-latin-regular.woff2';
-import WorkSansSemibold from 'fonts/work-sans-v13-latin-600.woff2';
+import RubikSemiBold from 'assets/fonts/rubik-v14-latin-500.woff2';
+import WorkSansRegular from 'assets/fonts/work-sans-v13-latin-regular.woff2';
+import WorkSansSemibold from 'assets/fonts/work-sans-v13-latin-600.woff2';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
