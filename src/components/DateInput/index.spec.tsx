@@ -84,13 +84,18 @@ describe('<DateInput />', () => {
     const twoMonthsFromNow = updateMonth(new Date(), 2);
 
     const { container } = render(<DateInput initialValue={nextMonth} />);
+    const inputWrapper = container.querySelector('.input-wrapper')!;
+
+    expect(document.body).toHaveFocus();
+    userEvent.tab();
+    expect(inputWrapper).toHaveFocus();
 
     expect(screen.getByText(getMonthName(nextMonth))).toBeInTheDocument();
     expect(
       screen.queryByText(getMonthName(twoMonthsFromNow))
     ).not.toBeInTheDocument();
 
-    fireEvent.keyUp(container, { key: 'ArrowRight' });
+    fireEvent.keyUp(inputWrapper, { key: 'ArrowRight' });
     await waitFor(() => {
       expect(
         screen.queryByText(getMonthName(nextMonth))
@@ -101,13 +106,37 @@ describe('<DateInput />', () => {
       ).toBeInTheDocument();
     });
 
-    fireEvent.keyUp(container, { key: 'ArrowLeft' });
+    fireEvent.keyUp(inputWrapper, { key: 'ArrowLeft' });
     await waitFor(() => {
       expect(
         screen.queryByText(getMonthName(twoMonthsFromNow))
       ).not.toBeInTheDocument();
 
       expect(screen.getByText(getMonthName(nextMonth))).toBeInTheDocument();
+    });
+  });
+
+  it('should not decrease/increase months when clicking the keyboard arrows if not focused', async () => {
+    const nextMonth = addAMonth(new Date());
+    const twoMonthsFromNow = updateMonth(new Date(), 2);
+
+    const { container } = render(<DateInput initialValue={nextMonth} />);
+    const inputWrapper = container.querySelector('.input-wrapper')!;
+
+    expect(document.body).toHaveFocus();
+
+    expect(screen.getByText(getMonthName(nextMonth))).toBeInTheDocument();
+    expect(
+      screen.queryByText(getMonthName(twoMonthsFromNow))
+    ).not.toBeInTheDocument();
+
+    fireEvent.keyUp(inputWrapper, { key: 'ArrowRight' });
+    await waitFor(() => {
+      expect(screen.queryByText(getMonthName(nextMonth))).toBeInTheDocument();
+
+      expect(
+        screen.queryByText(getMonthName(twoMonthsFromNow))
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -127,11 +156,29 @@ describe('<DateInput />', () => {
       <DateInput initialValue={nextMonth} onDateChange={onDateChange} />
     );
 
-    fireEvent.keyUp(container, { key: 'ArrowRight' });
+    const inputWrapper = container.querySelector('.input-wrapper')!;
+    expect(document.body).toHaveFocus();
+    userEvent.tab();
+    expect(inputWrapper).toHaveFocus();
+
+    fireEvent.keyUp(inputWrapper, { key: 'ArrowRight' });
     expect(onDateChange).toHaveBeenCalledWith(twoMonthsFromNow);
 
     fireEvent.keyUp(container, { key: 'ArrowLeft' });
     expect(onDateChange).toHaveBeenCalledWith(nextMonth);
+  });
+
+  it('should not call the callback function with the updated value when the date changes if not focused', () => {
+    const onDateChange = jest.fn();
+
+    const { container } = render(<DateInput onDateChange={onDateChange} />);
+
+    const inputWrapper = container.querySelector('.input-wrapper')!;
+    expect(document.body).toHaveFocus();
+    expect(inputWrapper).not.toHaveFocus();
+
+    fireEvent.keyUp(container, { key: 'ArrowRight' });
+    expect(onDateChange).not.toHaveBeenCalled();
   });
 
   it('should only allow navigating to future months ', async () => {

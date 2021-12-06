@@ -25,6 +25,8 @@ export default function DateInput({
   onDateChange,
 }: DateInputProps) {
   const isFirstRender = useRef(true);
+  const inputWrapperRef = useRef<HTMLDivElement>(null);
+
   const [selectedMonthYear, setSelectedMonthYear] = useState(() => {
     if (!initialValue || getMonthYear(initialValue) < MINIMUM_MONTH_YEAR) {
       return MINIMUM_MONTH_YEAR;
@@ -38,14 +40,37 @@ export default function DateInput({
   );
 
   const handleDecrementMonth = useCallback(() => {
-    if (allowPreviousMonth) {
-      setSelectedMonthYear((currentValue) => removeAMonth(currentValue));
-    }
-  }, [allowPreviousMonth]);
+    setSelectedMonthYear((currentValue) => removeAMonth(currentValue));
+  }, []);
 
   const handleIncrementMonth = useCallback(() => {
     setSelectedMonthYear((currentValue) => addAMonth(currentValue));
   }, []);
+
+  const handleKeyUp = useCallback(
+    ({ key }: KeyboardEvent) => {
+      const isFocused = document.activeElement === inputWrapperRef.current;
+      if (!['ArrowLeft', 'ArrowRight'].includes(key) || !isFocused) {
+        return;
+      }
+
+      if (key === 'ArrowLeft' && allowPreviousMonth) {
+        handleDecrementMonth();
+      }
+
+      if (key === 'ArrowRight') {
+        handleIncrementMonth();
+      }
+    },
+    [allowPreviousMonth, handleDecrementMonth, handleIncrementMonth]
+  );
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [handleKeyUp]);
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -56,27 +81,15 @@ export default function DateInput({
     !!onDateChange && onDateChange(selectedMonthYear);
   }, [selectedMonthYear, onDateChange]);
 
-  useEffect(() => {
-    const handleKeyUp = ({ key }: KeyboardEvent) => {
-      if (key === 'ArrowLeft') {
-        handleDecrementMonth();
-      }
-
-      if (key === 'ArrowRight') {
-        handleIncrementMonth();
-      }
-    };
-
-    window.addEventListener('keyup', handleKeyUp);
-    return () => {
-      window.removeEventListener('keyup', handleKeyUp);
-    };
-  }, [handleIncrementMonth, handleDecrementMonth]);
-
   return (
     <S.Wrapper>
       {!!label && <S.Label>{label}</S.Label>}
-      <S.InnerWrapper>
+      <S.InputWrapper
+        className="input-wrapper"
+        aria-labelledby="input-wrapper"
+        ref={inputWrapperRef}
+        tabIndex={0}
+      >
         <S.IconWrapper
           aria-label="previous month"
           onClick={handleDecrementMonth}
@@ -91,7 +104,7 @@ export default function DateInput({
         <S.IconWrapper aria-label="next month" onClick={handleIncrementMonth}>
           <ArrowRightIcon />
         </S.IconWrapper>
-      </S.InnerWrapper>
+      </S.InputWrapper>
     </S.Wrapper>
   );
 }

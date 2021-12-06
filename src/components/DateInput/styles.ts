@@ -15,7 +15,7 @@ export const Label = styled.label`
   }
 `;
 
-export const InnerWrapper = styled.div`
+export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,8 +24,9 @@ export const InnerWrapper = styled.div`
   padding: 0 1.2rem;
   height: 5.6rem;
 
-  :focus {
-    background: red;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0.2rem var(--blueGray100);
   }
 `;
 

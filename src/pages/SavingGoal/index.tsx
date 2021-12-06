@@ -10,7 +10,7 @@ import { calculateDeposits, getMonthlyDepositsDescription } from './utils';
 import * as S from './styles';
 
 export default function SavingGoal() {
-  const [moneyInCents, setMoneyInCents] = useState(25000000);
+  const [moneyInCents, setMoneyInCents] = useState(250000);
   const [reachDate, setReachDate] = useState(addAMonth(new Date()));
 
   const handleMoneyChange = useCallback((value) => {
