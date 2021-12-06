@@ -10,6 +10,7 @@ import {
 } from 'lib/date';
 
 import * as S from './styles';
+import useUpdateEffect from 'hooks/useUpdateEffect';
 
 type DateInputProps = {
   onDateChange?: (value: Date) => void;
@@ -24,7 +25,6 @@ export default function DateInput({
   initialValue,
   onDateChange,
 }: DateInputProps) {
-  const isFirstRender = useRef(true);
   const inputWrapperRef = useRef<HTMLDivElement>(null);
 
   const [selectedMonthYear, setSelectedMonthYear] = useState(() => {
@@ -55,11 +55,11 @@ export default function DateInput({
       }
 
       if (key === 'ArrowLeft' && allowPreviousMonth) {
-        handleDecrementMonth();
+        return handleDecrementMonth();
       }
 
       if (key === 'ArrowRight') {
-        handleIncrementMonth();
+        return handleIncrementMonth();
       }
     },
     [allowPreviousMonth, handleDecrementMonth, handleIncrementMonth]
@@ -72,21 +72,20 @@ export default function DateInput({
     };
   }, [handleKeyUp]);
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    !!onDateChange && onDateChange(selectedMonthYear);
-  }, [selectedMonthYear, onDateChange]);
+  useUpdateEffect(
+    () => !!onDateChange && onDateChange(selectedMonthYear),
+    [selectedMonthYear]
+  );
 
   return (
     <S.Wrapper>
-      {!!label && <S.Label>{label}</S.Label>}
+      {!!label && (
+        <S.Label role="button" onClick={() => inputWrapperRef.current?.focus()}>
+          {label}
+        </S.Label>
+      )}
       <S.InputWrapper
         className="input-wrapper"
-        aria-labelledby="input-wrapper"
         ref={inputWrapperRef}
         tabIndex={0}
       >
