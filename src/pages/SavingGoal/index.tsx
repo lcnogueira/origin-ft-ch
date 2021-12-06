@@ -4,21 +4,10 @@ import HouseIcon from 'assets/icons/HouseIcon';
 import Button from 'components/Button';
 import MoneyInput from 'components/MoneyInput';
 import DateInput from 'components/DateInput';
-import {
-  addAMonth,
-  getMonthYear,
-  getMonthYearDescription,
-  monthsDifference,
-} from 'lib/date';
-import { formatMoneyInCents } from 'lib/currency';
+import { addAMonth, getMonthYearDescription } from 'lib/date';
+import { formatCurrency } from 'lib/currency';
+import { calculateDeposits, getMonthlyDepositsDescription } from './utils';
 import * as S from './styles';
-
-const TODAY = getMonthYear();
-
-const calculateDeposits = (money: number, reachDate: Date) => {
-  const monthsAmount = monthsDifference(TODAY, reachDate);
-  return { monthsAmount, monthlyDeposit: money / monthsAmount };
-};
 
 export default function SavingGoal() {
   const [moneyInCents, setMoneyInCents] = useState(25000000);
@@ -75,13 +64,14 @@ export default function SavingGoal() {
           <S.AmountContainer>
             <S.AmountTitle>Monthly amount</S.AmountTitle>
             <S.AmountValue data-testid="monthly-deposit">
-              {formatMoneyInCents(monthlyDeposit)}
+              {formatCurrency(monthlyDeposit)}
             </S.AmountValue>
           </S.AmountContainer>
           <S.ResultMessage data-testid="result-message">
-            You’re planning <strong>{monthsAmount} monthly deposit(s)</strong>{' '}
-            to reach your <strong>{formatMoneyInCents(moneyInCents)}</strong>{' '}
-            goal by <strong>{getMonthYearDescription(reachDate)}</strong>.
+            You’re planning{' '}
+            <strong>{getMonthlyDepositsDescription(monthsAmount)}</strong> to
+            reach your <strong>{formatCurrency(moneyInCents)}</strong> goal by{' '}
+            <strong>{getMonthYearDescription(reachDate)}</strong>.
           </S.ResultMessage>
           <Button type="submit">Confirm</Button>
         </S.Card>

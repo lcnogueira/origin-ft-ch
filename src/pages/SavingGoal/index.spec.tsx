@@ -19,7 +19,7 @@ describe('<SavingGoal />', () => {
       '$250,000.00'
     );
     expect(screen.getByTestId('result-message')).toHaveTextContent(
-      `You’re planning 1 monthly deposit(s) to reach your $250,000.00 goal by ${initialReachMonth} ${initialReachYear}.`
+      `You’re planning 1 deposit to reach your $250,000.00 goal by ${initialReachMonth} ${initialReachYear}.`
     );
 
     userEvent.type(totalAmountInput, '000');
@@ -28,7 +28,7 @@ describe('<SavingGoal />', () => {
       '$250,000,000.00'
     );
     expect(screen.getByTestId('result-message')).toHaveTextContent(
-      `You’re planning 1 monthly deposit(s) to reach your $250,000,000.00 goal by ${initialReachMonth} ${initialReachYear}.`
+      `You’re planning 1 deposit to reach your $250,000,000.00 goal by ${initialReachMonth} ${initialReachYear}.`
     );
 
     const nextMonthButton = screen.getByRole('button', {
@@ -43,7 +43,7 @@ describe('<SavingGoal />', () => {
       '$125,000,000.00'
     );
     expect(screen.getByTestId('result-message')).toHaveTextContent(
-      `You’re planning 2 monthly deposit(s) to reach your $250,000,000.00 goal by ${twoMonthsFarDateMonth} ${twoMonthsFarDateYear}.`
+      `You’re planning 2 monthly deposits to reach your $250,000,000.00 goal by ${twoMonthsFarDateMonth} ${twoMonthsFarDateYear}.`
     );
   });
 });

@@ -6,6 +6,7 @@ export const Wrapper = styled.button`
   align-items: center;
   justify-content: center;
   color: var(--white);
+  font-family: 'Work Sans';
   font-weight: 600;
   font-size: 1.6rem;
   line-height: 2rem;

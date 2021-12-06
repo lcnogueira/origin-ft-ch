@@ -1,10 +1,35 @@
 import { createGlobalStyle } from 'styled-components';
+import RubikSemiBold from 'assets/fonts/rubik-v14-latin-500.woff2';
+import WorkSansRegular from 'assets/fonts/work-sans-v13-latin-regular.woff2';
+import WorkSansSemibold from 'assets/fonts/work-sans-v13-latin-600.woff2';
 
 const GlobalStyles = createGlobalStyle`
-  /* @font-face {
-    font-family: '';
-    src: url('/')
-  } */
+  @font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: local('Rubik-Semibold'),
+    url(${RubikSemiBold}) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Work-Sans-Regular'),
+    url(${WorkSansRegular}) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: local('Work-Sans-SemiBold'),
+          url(${WorkSansSemibold}) format('woff2');
+    }
 
  * {
     margin: 0;
@@ -34,25 +59,25 @@ const GlobalStyles = createGlobalStyle`
     --defaultTransition: 0.2s ease-in-out;
   }
 
+  body {
+    font-size: 2rem;
+    color: var(--blueGray900);
+    background-color: var(--blueGray10);
+  }
+
+  body, button, input{
+    font-family: 'Work Sans', -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif;
+    font-weight: 400;
+  }
+
   body,
   #root {
     min-height: 100%;
   }
 
-  body {
-    /* font-family: ; */
-      font-size: 2rem;
-      color: var(--blueGray900);
-      background-color: var(--blueGray10);
-  }
-
   a{
     text-decoration: none;
   }
-
-  /* button{
-    font-family: ;
-  } */
 `;
 
 export default GlobalStyles;
