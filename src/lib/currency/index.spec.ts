@@ -1,11 +1,4 @@
-import {
-  maskValue,
-  unMaskValue,
-  toCents,
-  toDollars,
-  formatMoney,
-  formatMoneyInCents,
-} from '.';
+import { maskValue, unMaskValue, toCents, toDollars, formatCurrency } from '.';
 
 describe('currency.ts', () => {
   describe('maskValue', () => {
@@ -57,17 +50,10 @@ describe('currency.ts', () => {
     });
   });
 
-  describe('formatMoney', () => {
-    it('should format money in dollars', () => {
-      expect(formatMoney(250)).toBe('$250.00');
-      expect(formatMoney(250000)).toBe('$250,000.00');
-    });
-  });
-
-  describe('formatMoneyIncents', () => {
+  describe('formatCurrency', () => {
     it('should format money in cents', () => {
-      expect(formatMoneyInCents(250)).toBe('$2.50');
-      expect(formatMoneyInCents(250000)).toBe('$2,500.00');
+      expect(formatCurrency(250)).toBe('$2.50');
+      expect(formatCurrency(250000)).toBe('$2,500.00');
     });
   });
 });

@@ -131,6 +131,7 @@ export const ResultMessage = styled.p`
   border: 1px solid var(--blueGray50);
   border-top: none;
   margin-bottom: 3.2rem;
+  min-height: 81px;
 
   @media ${devices.medium} {
     text-align: justify;

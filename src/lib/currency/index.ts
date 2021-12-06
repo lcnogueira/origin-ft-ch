@@ -20,15 +20,11 @@ export const toDollars = (cents: number) => {
   return cents / 100;
 };
 
-export const formatMoney = (money: number) => {
+export const formatCurrency = (moneyInCents: number) => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
-  }).format(money);
-};
-
-export const formatMoneyInCents = (moneyInCents: number) => {
-  return formatMoney(toDollars(moneyInCents));
+  }).format(toDollars(moneyInCents));
 };
