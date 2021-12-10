@@ -1,5 +1,5 @@
 import DollarSignIcon from 'assets/icons/DollarSignIcon';
-import { maskValue, toCents, unMaskValue } from 'lib/currency';
+import { maskValue, toCents, unMaskValue } from 'utils/currency';
 import { InputHTMLAttributes, useCallback, useState } from 'react';
 import * as S from './styles';
 

@@ -4,10 +4,10 @@ import HouseIcon from 'assets/icons/HouseIcon';
 import Button from 'components/Button';
 import MoneyInput from 'components/MoneyInput';
 import DateInput from 'components/DateInput';
-import { addAMonth, getMonthYearDescription } from 'lib/date';
-import { formatCurrency } from 'lib/currency';
-import { calculateDeposits, getMonthlyDepositsDescription } from './utils';
+import { addAMonth, getMonthYearDescription } from 'utils/date';
+import { formatCurrency } from 'utils/currency';
 import * as S from './styles';
+import { calculateDeposits, getMonthlyDepositsDescription } from 'lib/deposits';
 
 export default function SavingGoal() {
   const [moneyInCents, setMoneyInCents] = useState(250000);

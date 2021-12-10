@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { addAMonth, getMonthName, getYear } from 'lib/date';
+import { addAMonth, getMonthName, getYear } from 'utils/date';
 import SavingGoal from '.';
 
 describe('<SavingGoal />', () => {

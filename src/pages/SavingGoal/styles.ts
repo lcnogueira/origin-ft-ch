@@ -1,4 +1,4 @@
-import { devices } from 'lib/breakpoints';
+import { devices } from 'utils/breakpoints';
 import styled from 'styled-components';
 
 import * as ButtonStyles from 'components/Button/styles';

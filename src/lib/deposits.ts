@@ -1,4 +1,4 @@
-import { getMonthYear, monthsDifference } from 'lib/date';
+import { getMonthYear, monthsDifference } from 'utils/date';
 
 const TODAY = getMonthYear();
 

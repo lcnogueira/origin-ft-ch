@@ -1,4 +1,4 @@
-import { devices } from 'lib/breakpoints';
+import { devices } from 'utils/breakpoints';
 import styled from 'styled-components';
 
 export const Wrapper = styled.header`

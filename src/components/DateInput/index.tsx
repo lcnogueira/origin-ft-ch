@@ -7,7 +7,7 @@ import {
   getMonthYear,
   getYear,
   removeAMonth,
-} from 'lib/date';
+} from 'utils/date';
 
 import * as S from './styles';
 import useUpdateEffect from 'hooks/useUpdateEffect';

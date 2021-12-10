@@ -6,7 +6,7 @@ import {
   getYear,
   removeAMonth,
   updateMonth,
-} from 'lib/date';
+} from 'utils/date';
 import DateInput from '.';
 
 describe('<DateInput />', () => {

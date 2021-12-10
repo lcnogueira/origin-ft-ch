@@ -1,4 +1,4 @@
-import { devices } from 'lib/breakpoints';
+import { devices } from 'utils/breakpoints';
 import styled, { css } from 'styled-components';
 import { MoneyInputProps } from '.';
 
