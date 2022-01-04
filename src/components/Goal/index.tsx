@@ -7,6 +7,7 @@ import { addAMonth, getMonthYearDescription } from 'utils/date';
 import { formatCurrency } from 'utils/currency';
 import * as S from './styles';
 import { calculateDeposits, getMonthlyDepositsDescription } from 'lib/deposits';
+import { getItem, saveItem } from 'utils/localStorage';
 
 export const GOALS_LIST = {
   college: {
@@ -48,8 +49,13 @@ export type GoalProps = {
 };
 
 export default function Goal({ type }: GoalProps) {
-  const [moneyInCents, setMoneyInCents] = useState(250000);
-  const [reachDate, setReachDate] = useState(addAMonth(new Date()));
+  const localGoal = getItem('@goal', type);
+  const [moneyInCents, setMoneyInCents] = useState(
+    localGoal?.moneyInCents || 0
+  );
+  const [reachDate, setReachDate] = useState(
+    addAMonth(localGoal?.reachDate ? new Date(localGoal.reachDate) : new Date())
+  );
   const { title, icon } = GOALS_LIST[type];
 
   const handleMoneyChange = useCallback((value) => {
@@ -67,7 +73,13 @@ export default function Goal({ type }: GoalProps) {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    //This is just a placecholder function
+
+    const goal = {
+      type,
+      moneyInCents,
+      reachDate,
+    };
+    saveItem('@goal', goal);
   };
 
   return (

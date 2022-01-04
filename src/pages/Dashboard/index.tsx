@@ -1,7 +1,7 @@
 import Card from 'components/Card';
 import Layout from 'components/Layout';
 
-import { GOALS_LIST } from 'components/Goal';
+import { GOALS_LIST, GoalType } from 'components/Goal';
 
 import * as S from './styles';
 
@@ -14,6 +14,7 @@ export default function Dashboard() {
           {Object.keys(GOALS_LIST).map((type) => (
             <Card
               key={type}
+              type={type as GoalType}
               //@ts-ignore
               title={GOALS_LIST[type].title}
               href={`/goal/${type}`}
