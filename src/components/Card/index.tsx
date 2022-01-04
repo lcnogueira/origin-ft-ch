@@ -1,9 +1,14 @@
 import Button from 'components/Button';
-import HouseIcon from 'assets/icons/HouseIcon';
 
 import * as S from './styles';
 
-export default function Card() {
+type CardProps = {
+  icon: React.ReactNode;
+  title: string;
+  href: string;
+};
+
+export default function Card({ icon, title, href }: CardProps) {
   function handleClick() {
     console.log('clicked');
   }
@@ -11,12 +16,12 @@ export default function Card() {
   return (
     <S.Container>
       <S.Content>
-        <S.IconWrapper>
-          <HouseIcon />
-        </S.IconWrapper>
-        <S.Title>Go to college</S.Title>
+        <S.IconWrapper>{icon}</S.IconWrapper>
+        <S.Title>{title}</S.Title>
       </S.Content>
-      <Button onClick={handleClick}>Setup Goal</Button>
+      <Button as="a" onClick={handleClick} href={href}>
+        Setup Goal
+      </Button>
     </S.Container>
   );
 }
