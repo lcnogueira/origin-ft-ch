@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { addAMonth, getMonthName, getYear } from 'utils/date';
-import SavingGoal from '.';
+import SavingGoal from '../../pages/SavingGoal';
 
 describe('<SavingGoal />', () => {
   it('should update goal description when user changes total amount or reach month', () => {

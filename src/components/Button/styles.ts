@@ -1,7 +1,7 @@
 import { devices } from 'utils/breakpoints';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.button`
+export const ButtonCss = css`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,4 +31,8 @@ export const Wrapper = styled.button`
   @media ${devices.medium} {
     max-width: 32rem;
   }
+`;
+
+export const Wrapper = styled.button`
+  ${ButtonCss}
 `;

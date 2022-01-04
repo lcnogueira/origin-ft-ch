@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { devices } from 'utils/breakpoints';
+import { Link as RouterLink } from 'react-router-dom';
+import { ButtonCss } from 'components/Button/styles';
 
 export const Container = styled.div`
   display: flex;
@@ -43,4 +45,8 @@ export const Title = styled.span`
   font-weight: 600;
   font-size: 1.6rem;
   line-height: 2.4rem;
+`;
+
+export const Link = styled(RouterLink)`
+  ${ButtonCss}
 `;

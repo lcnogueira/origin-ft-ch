@@ -8,7 +8,7 @@ export default function Routes() {
     <Router>
       <Switch>
         <Route path="/" exact component={Dashboard}></Route>
-        <Route path="/goal/:slug" exact component={SavingGoal}></Route>
+        <Route path="/goal/:type" exact component={SavingGoal}></Route>
       </Switch>
     </Router>
   );
